@@ -22,7 +22,6 @@ jobs:
           cd android
           echo "Current directory: $(pwd)"
           KEYSTORE_FILE="upload-keystore.jks"
-          ls -la 
           ls -la app/
           echo "处理密钥库..."
           # echo ${{ secrets.KEYSTORE_STORE_FILE_BASE64 }} | base64 --decode > app/${{ secrets.KEYSTORE_STORE_FILE }}
