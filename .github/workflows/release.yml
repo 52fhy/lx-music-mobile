@@ -23,9 +23,11 @@ jobs:
           echo "Current directory: $(pwd)"
           KEYSTORE_FILE="upload-keystore.jks"
           ls -la 
+          ls -la app/
           # echo ${{ secrets.KEYSTORE_STORE_FILE_BASE64 }} | base64 --decode > app/${{ secrets.KEYSTORE_STORE_FILE }}
           echo "${{ secrets.KEYSTORE_STORE_FILE_BASE64 }}" | base64 --decode > "app/$KEYSTORE_FILE"
-          ls -la "app/$KEYSTORE_FILE" || echo "Keystore creation failed"
+          chmod 644 app/$KEYSTORE_FILE
+          ls -la app/$KEYSTORE_FILE || echo "Keystore creation failed"
           # ls -la app/${{ secrets.KEYSTORE_STORE_FILE }} || echo "Keystore creation failed"
           file "app/$KEYSTORE_FILE" || echo "File verification failed"
           # ./gradlew assembleRelease -PMYAPP_UPLOAD_STORE_FILE='${{ secrets.KEYSTORE_STORE_FILE }}' -PMYAPP_UPLOAD_KEY_ALIAS='${{ secrets.KEYSTORE_KEY_ALIAS }}' -PMYAPP_UPLOAD_STORE_PASSWORD='${{ secrets.KEYSTORE_PASSWORD }}' -PMYAPP_UPLOAD_KEY_PASSWORD='${{ secrets.KEYSTORE_KEY_PASSWORD }}'
