@@ -25,10 +25,8 @@ jobs:
           ls -la app/
           echo "处理密钥库..."
           # echo ${{ secrets.KEYSTORE_STORE_FILE_BASE64 }} | base64 --decode > app/${{ secrets.KEYSTORE_STORE_FILE }}
-          echo "${{ secrets.KEYSTORE_STORE_FILE_BASE64 }}"
-          echo "${{ secrets.KEYSTORE_STORE_FILE_BASE64 }}" | wc -l
-          echo "${{ secrets.KEYSTORE_STORE_FILE_BASE64 }}" | base64 --decode > app/$KEYSTORE_FILE
-          chmod 644 app/$KEYSTORE_FILE
+          echo "${{ secrets.KEYSTORE_STORE_FILE_BASE64 }}" | tr -d '\n' | base64 -d > app/$KEYSTORE_FILE
+          # chmod 644 app/$KEYSTORE_FILE
           ls -la app/$KEYSTORE_FILE || echo "Keystore creation failed"
           # ls -la app/${{ secrets.KEYSTORE_STORE_FILE }} || echo "Keystore creation failed"
           file "app/$KEYSTORE_FILE" || echo "File verification failed"
